@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import { postLoginUser } from '../../../utils/api';
@@ -11,6 +11,9 @@ import {
 } from '../../../utils/styles';
 import { UserCredentialsParams } from '../../../utils/types';
 import styles from '../index.module.scss';
+import { useDispatch } from 'react-redux';
+import { setToken } from '../../../store/settings/settingsSlice';
+import React from 'react';
 
 export const LoginForm = () => {
   const {
@@ -20,12 +23,19 @@ export const LoginForm = () => {
   } = useForm<UserCredentialsParams>();
   const navigate = useNavigate();
   const socket = useContext(SocketContext);
+  const dispatch = useDispatch();
 
   const onSubmit = async (data: UserCredentialsParams) => {
     console.log(socket);
     console.log(socket.connected);
     try {
-      await postLoginUser(data);
+       await postLoginUser(data)       
+       .then((response) => {
+        console.log("TOKEN", response.data.data)
+          let token = response.data.data.accessToken;          
+          dispatch(setToken(token));
+          localStorage.setItem('token', token);          
+       });     
       console.log('Success');
       socket.connect();
       console.log(socket.connected);

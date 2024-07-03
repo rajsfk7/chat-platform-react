@@ -28,11 +28,17 @@ import {
   User,
   UserCredentialsParams,
 } from './types';
+import { setToken } from '../store/settings/settingsSlice';
+
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 const axiosClient = axios.create({ baseURL: API_URL });
 const config: AxiosRequestConfig = { withCredentials: true };
+
+axiosClient.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('token') ?? 'TOKEN';
+
+console.log("TOKEN DATANNN >>>> " , localStorage.getItem('token') ?? 'TOKEN');
 
 export const postRegisterUser = (data: CreateUserParams) =>
   axiosClient.post(`/auth/register`, data, config);

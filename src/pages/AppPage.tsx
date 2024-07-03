@@ -51,6 +51,7 @@ export const AppPage = () => {
 
   useEffect(() => {
     if (!user) return;
+    console.log(user)
     const newPeer = new Peer(user.peer.id, {
       config: {
         iceServers: [
