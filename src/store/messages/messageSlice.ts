@@ -32,10 +32,10 @@ export const messagesSlice = createSlice({
     deleteMessage: (state, action: PayloadAction<DeleteMessageResponse>) => {
       console.log('Inside deleteMessage reducer');
       const { payload } = action;
-      const conversationMessages = state.messages.find((cm) => cm.id === payload.conversationId);
+      const conversationMessages = state.messages.find((cm) => cm.id === payload.conversationid);
       if (!conversationMessages) return;
       const messageIndex = conversationMessages.messages.findIndex(
-        (m) => m.id === payload.messageId
+        (m) => m.id === payload.messageid
       );
       conversationMessages.messages.splice(messageIndex, 1);
     },
@@ -63,10 +63,10 @@ export const messagesSlice = createSlice({
       })
       .addCase(deleteMessageThunk.fulfilled, (state, action) => {
         const { data } = action.payload;
-        const conversationMessages = state.messages.find((cm) => cm.id === data.conversationId);
+        const conversationMessages = state.messages.find((cm) => cm.id === data.conversationid);
         if (!conversationMessages) return;
         const messageIndex = conversationMessages.messages.findIndex(
-          (m) => m.id === data.messageId
+          (m) => m.id === data.messageid
         );
         conversationMessages?.messages.splice(messageIndex, 1);
       })
@@ -86,7 +86,7 @@ export const messagesSlice = createSlice({
 
 const selectConversationMessages = (state: RootState) => state.messages.messages;
 
-const selectConversationMessageId = (state: RootState, id: number) => id;
+const selectConversationMessageId = (state: RootState, id: string) => id;
 
 export const selectConversationMessage = createSelector(
   [selectConversationMessages, selectConversationMessageId],

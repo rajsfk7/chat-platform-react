@@ -35,7 +35,7 @@ export const SelectedParticipantContextMenu: FC<Props> = ({ points }) => {
     (state: RootState) => state.groupSidebar.selectedUser
   );
   const group = useSelector((state: RootState) =>
-    selectGroupById(state, parseInt(id!))
+    selectGroupById(state, id!)
   );
 
   const kickUser = () => {
@@ -44,8 +44,8 @@ export const SelectedParticipantContextMenu: FC<Props> = ({ points }) => {
     if (!selectedUser) return;
     dispatch(
       removeGroupRecipientThunk({
-        id: parseInt(id!),
-        userId: selectedUser.id,
+        id: id!,
+        userid: selectedUser.id,
       })
     );
   };
@@ -54,7 +54,7 @@ export const SelectedParticipantContextMenu: FC<Props> = ({ points }) => {
     console.log(`Transfering Group Owner to ${selectedUser?.id}`);
     if (!selectedUser) return;
     dispatch(
-      updateGroupOwnerThunk({ id: parseInt(id!), newOwnerId: selectedUser.id })
+      updateGroupOwnerThunk({ id: id!, newOwnerid: selectedUser.id })
     );
   };
 

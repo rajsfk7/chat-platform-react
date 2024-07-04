@@ -11,7 +11,7 @@ export function useGroupGuard() {
   useEffect(() => {
     console.log('Fetching Group');
     setLoading(true);
-    fetchGroupById(parseInt(id!))
+    fetchGroupById(id!)
       .catch((err) => {
         console.log(err);
         setError(err);

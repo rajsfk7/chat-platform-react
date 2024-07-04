@@ -89,7 +89,7 @@ export const GroupPage = () => {
 
     socket.on('onGroupRemoved', (payload: RemoveGroupUserMessagePayload) => {
       dispatch(removeGroup(payload.group));
-      if (id && parseInt(id) === payload.group.id) {
+      if (id === payload.group.id) {
         console.log('Navigating User to /groups');
         navigate('/groups');
       }
@@ -97,11 +97,11 @@ export const GroupPage = () => {
 
     socket.on(
       'onGroupParticipantLeft',
-      ({ group, userId }: GroupParticipantLeftPayload) => {
+      ({ group, userid }: GroupParticipantLeftPayload) => {
         console.log('onGroupParticipantLeft received');
         dispatch(updateGroup({ group }));
-        if (userId === user?.id) {
-          console.log('payload.userId matches user.id...');
+        if (userid === user?.id) {
+          console.log('payload.userid matches user.id...');
           dispatch(removeGroup(group));
           navigate('/groups');
         }

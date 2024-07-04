@@ -28,7 +28,7 @@ const initialState: GroupMessagesState = {
 
 export const fetchGroupMessagesThunk = createAsyncThunk(
   'groupMessages/fetch',
-  (id: number) => fetchGroupMessagesAPI(id)
+  (id: string) => fetchGroupMessagesAPI(id)
 );
 
 export const deleteGroupMessageThunk = createAsyncThunk(
@@ -84,13 +84,13 @@ export const groupMessagesSlice = createSlice({
 
         const { data } = action.payload;
         const groupMessages = state.messages.find(
-          (gm) => gm.id === data.groupId
+          (gm) => gm.id === data.groupid
         );
         console.log(data);
         console.log(groupMessages);
         if (!groupMessages) return;
         const messageIndex = groupMessages.messages.findIndex(
-          (m) => m.id === data.messageId
+          (m) => m.id === data.messageid
         );
         groupMessages?.messages.splice(messageIndex, 1);
       });
@@ -98,7 +98,7 @@ export const groupMessagesSlice = createSlice({
 });
 
 const selectGroupMessages = (state: RootState) => state.groupMessages.messages;
-const selectGroupMessageId = (state: RootState, id: number) => id;
+const selectGroupMessageId = (state: RootState, id: string) => id;
 
 export const selectGroupMessage = createSelector(
   [selectGroupMessages, selectGroupMessageId],

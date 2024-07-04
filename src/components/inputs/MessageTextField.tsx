@@ -66,7 +66,8 @@ export const MessageTextField: FC<Props> = ({
     for (let i = 0; i < filesArray.length; i++) {
       console.log(filesArray[i]);
       if (i === maxFilesDropped) break;
-      dispatch(addAttachment({ id: localCounter++, file: filesArray[i] }));
+      localCounter = localCounter + 1;
+      dispatch(addAttachment({ id: localCounter.toString(), file: filesArray[i] }));
       dispatch(incrementAttachmentCounter());
     }
   };

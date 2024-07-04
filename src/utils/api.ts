@@ -51,12 +51,12 @@ export const getAuthUser = () => axiosClient.get<User>(`/auth/status`, config);
 export const getConversations = () =>
   axiosClient.get<Conversation[]>(`/conversations`, config);
 
-export const getConversationById = (id: number) =>
+export const getConversationById = (id: string) =>
   axiosClient.get<Conversation>(`/conversations/${id}`, config);
 
-export const getConversationMessages = (conversationId: number) =>
+export const getConversationMessages = (conversationid: string) =>
   axiosClient.get<FetchMessagePayload>(
-    `/conversations/${conversationId}/messages`,
+    `/conversations/${conversationid}/messages`,
     config
   );
 
@@ -78,25 +78,25 @@ export const createMessage = (
 export const postNewConversation = (data: CreateConversationParams) =>
   axiosClient.post<Conversation>(`/conversations`, data, config);
 
-export const deleteMessage = ({ id, messageId }: DeleteMessageParams) =>
+export const deleteMessage = ({ id, messageid }: DeleteMessageParams) =>
   axiosClient.delete<DeleteMessageResponse>(
-    `/conversations/${id}/messages/${messageId}`,
+    `/conversations/${id}/messages/${messageid}`,
     config
   );
 
-export const editMessage = ({ content, id, messageId }: EditMessagePayload) =>
+export const editMessage = ({ content, id, messageid }: EditMessagePayload) =>
   axiosClient.patch<MessageType>(
-    `/conversations/${id}/messages/${messageId}`,
+    `/conversations/${id}/messages/${messageid}`,
     { content },
     config
   );
 
 export const fetchGroups = () => axiosClient.get<Group[]>(`/groups`, config);
 
-export const fetchGroupById = (id: number) =>
+export const fetchGroupById = (id: string) =>
   axiosClient.get<Group>(`/groups/${id}`, config);
 
-export const fetchGroupMessages = (id: number) =>
+export const fetchGroupMessages = (id: string) =>
   axiosClient.get<FetchGroupMessagePayload>(`/groups/${id}/messages`, config);
 
 export const postGroupMessage = ({ id, content }: CreateMessageParams) =>
@@ -110,20 +110,20 @@ export const createGroup = (params: CreateGroupParams) =>
 
 export const deleteGroupMessage = ({
   id,
-  messageId,
+  messageid,
 }: DeleteGroupMessageParams) =>
   axiosClient.delete<DeleteGroupMessageResponse>(
-    `/groups/${id}/messages/${messageId}`,
+    `/groups/${id}/messages/${messageid}`,
     config
   );
 
 export const editGroupMessage = ({
   content,
   id,
-  messageId,
+  messageid,
 }: EditMessagePayload) =>
   axiosClient.patch<GroupMessageType>(
-    `/groups/${id}/messages/${messageId}`,
+    `/groups/${id}/messages/${messageid}`,
     { content },
     config
   );
@@ -133,14 +133,14 @@ export const addGroupRecipient = ({ id, username }: AddGroupRecipientParams) =>
 
 export const removeGroupRecipient = ({
   id,
-  userId,
+  userid,
 }: RemoveGroupRecipientParams) =>
-  axiosClient.delete<Group>(`/groups/${id}/recipients/${userId}`, config);
+  axiosClient.delete<Group>(`/groups/${id}/recipients/${userid}`, config);
 
-export const updateGroupOwner = ({ id, newOwnerId }: UpdateGroupOwnerParams) =>
-  axiosClient.patch(`/groups/${id}/owner`, { newOwnerId }, config);
+export const updateGroupOwner = ({ id, newOwnerid }: UpdateGroupOwnerParams) =>
+  axiosClient.patch(`/groups/${id}/owner`, { newOwnerid }, config);
 
-export const leaveGroup = (id: number) =>
+export const leaveGroup = (id: string) =>
   axiosClient.delete(`/groups/${id}/recipients/leave`, config);
 
 export const fetchFriends = () => axiosClient.get<Friend[]>('/friends', config);
@@ -151,31 +151,31 @@ export const fetchFriendRequests = () =>
 export const createFriendRequest = (username: string) =>
   axiosClient.post<FriendRequest>('/friends/requests', { username }, config);
 
-export const cancelFriendRequest = (id: number) =>
+export const cancelFriendRequest = (id: string) =>
   axiosClient.delete<CancelFriendRequestResponse>(
     `/friends/requests/${id}/cancel`,
     config
   );
 
-export const acceptFriendRequest = (id: number) =>
+export const acceptFriendRequest = (id: string) =>
   axiosClient.patch<AcceptFriendRequestResponse>(
     `/friends/requests/${id}/accept`,
     {},
     config
   );
 
-export const rejectFriendRequest = (id: number) =>
+export const rejectFriendRequest = (id: string) =>
   axiosClient.patch<FriendRequest>(
     `/friends/requests/${id}/reject`,
     {},
     config
   );
 
-export const removeFriend = (id: number) =>
+export const removeFriend = (id: string) =>
   axiosClient.delete<Friend>(`/friends/${id}/delete`, config);
 
-export const checkConversationOrCreate = (recipientId: number) =>
-  axiosClient.get<Conversation>(`/exists/conversations/${recipientId}`, config);
+export const checkConversationOrCreate = (recipientid: string) =>
+  axiosClient.get<Conversation>(`/exists/conversations/${recipientid}`, config);
 
 export const completeUserProfile = (data: FormData) =>
   axiosClient.post('/users/profiles', data, {

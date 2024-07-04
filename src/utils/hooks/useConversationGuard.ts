@@ -11,7 +11,7 @@ export function useConversationGuard() {
   useEffect(() => {
     console.log('Fetching Conversation');
     setLoading(true);
-    getConversationById(parseInt(id!))
+    getConversationById(id!)
       .catch((err) => {
         console.log(err);
         setError(err);

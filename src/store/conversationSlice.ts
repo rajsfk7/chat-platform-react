@@ -59,7 +59,7 @@ export const conversationsSlice = createSlice({
 });
 
 const selectConversations = (state: RootState) => state.conversation.conversations;
-const selectConversationId = (state: RootState, id: number) => id;
+const selectConversationId = (state: RootState, id: string) => id;
 
 export const selectConversationById = createSelector(
   [selectConversations, selectConversationId],

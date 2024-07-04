@@ -22,13 +22,13 @@ export const SelectedMessageContextMenu = () => {
   );
 
   const deleteMessage = () => {
-    const id = parseInt(routeId!);
+    const id = routeId!;
     console.log(`Delete message ${message?.id}`);
     if (!message) return;
-    const messageId = message.id;
+    const messageid = message.id;
     return conversationType === 'private'
-      ? dispatch(deleteMessageThunk({ id, messageId: message.id }))
-      : dispatch(deleteGroupMessageThunk({ id, messageId }));
+      ? dispatch(deleteMessageThunk({ id, messageid: message.id }))
+      : dispatch(deleteGroupMessageThunk({ id, messageid }));
   };
 
   const editMessage = () => {

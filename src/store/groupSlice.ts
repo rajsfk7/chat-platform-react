@@ -60,7 +60,7 @@ export const updateGroupOwnerThunk = createAsyncThunk(
   (params: UpdateGroupOwnerParams) => updateGroupOwnerAPI(params)
 );
 
-export const leaveGroupThunk = createAsyncThunk('groups/leave', (id: number) =>
+export const leaveGroupThunk = createAsyncThunk('groups/leave', (id: string) =>
   leaveGroupAPI(id)
 );
 
@@ -161,7 +161,7 @@ export const groupsSlice = createSlice({
 });
 
 const selectGroups = (state: RootState) => state.groups.groups;
-const selectGroupId = (state: RootState, id: number) => id;
+const selectGroupId = (state: RootState, id: string) => id;
 
 export const selectGroupById = createSelector(
   [selectGroups, selectGroupId],

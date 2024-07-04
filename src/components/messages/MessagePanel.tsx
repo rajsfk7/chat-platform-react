@@ -45,10 +45,10 @@ export const MessagePanel: FC<Props> = ({
   const { error } = useToast({ theme: 'dark' });
   const { attachments } = useSelector((state: RootState) => state.messagePanel);
   const conversation = useSelector((state: RootState) =>
-    selectConversationById(state, parseInt(routeId!))
+    selectConversationById(state, routeId!)
   );
   const group = useSelector((state: RootState) =>
-    selectGroupById(state, parseInt(routeId!))
+    selectGroupById(state, routeId!)
   );
   const selectedType = useSelector(
     (state: RootState) => state.selectedConversationType.type
@@ -84,7 +84,7 @@ export const MessagePanel: FC<Props> = ({
         error('You are rate limited', { toastId });
         dispatch(
           addSystemMessage({
-            id: messageCounter,
+            id: messageCounter.toString(),
             level: 'error',
             content: 'You are being rate limited. Slow down.',
           })
@@ -92,7 +92,7 @@ export const MessagePanel: FC<Props> = ({
       } else if (axiosError.response?.status === 404) {
         dispatch(
           addSystemMessage({
-            id: messageCounter,
+            id: messageCounter.toString(),
             level: 'error',
             content:
               'The recipient is not in your friends list or they may have blocked you.',
